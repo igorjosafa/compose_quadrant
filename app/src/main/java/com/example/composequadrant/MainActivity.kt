@@ -1,19 +1,16 @@
 package com.example.composequadrant
 
-import android.graphics.Paint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,9 +29,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeQuadrantTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                ) {
-                    Quadrant()
+                Surface {
+                    Quadrants()
                 }
             }
         }
@@ -42,7 +38,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Quadrant(modifier: Modifier = Modifier) {
+fun Quadrants(modifier: Modifier = Modifier) {
     Row(modifier = modifier.fillMaxSize()) {
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,
@@ -50,49 +46,18 @@ fun Quadrant(modifier: Modifier = Modifier) {
                 .fillMaxHeight()
                 .fillMaxWidth(0.5F)
         ) {
-            Column(modifier = modifier
-                .background(color = Color(0xFFEADDFF))
-                .fillMaxHeight(0.5F)
-                .padding(16.dp),
-                verticalArrangement = Arrangement.Center
+            Quarter(
+                title = stringResource(R.string.text_title),
+                text = stringResource(R.string.text_text),
+                color = 0xFFEADDFF,
+                height = 0.5F
             )
-             {
-                Text(
-                    text = stringResource(R.string.text_title),
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                )
-                Text(
-                    text = stringResource(R.string.text_text),
-                    color = Color.Black,
-                    textAlign = TextAlign.Justify
-                )
-            }
-            Column(modifier
-                .fillMaxHeight()
-                .background(color = Color(0xFFB69DF8))
-                .padding(16.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = stringResource(R.string.row_title),
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                )
-                Text(
-                    text = stringResource(R.string.row_text),
-                    color = Color.Black,
-                    textAlign = TextAlign.Justify
-                )
-            }
+            Quarter(
+                title = stringResource(R.string.row_title),
+                text = stringResource(R.string.row_text),
+                color = 0xFFB69DF8,
+                height = 1F
+            )
         }
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,
@@ -101,57 +66,58 @@ fun Quadrant(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
         )
         {
-            Column(modifier = modifier
-                .background(color = Color(0xFFD0BCFF))
-                .fillMaxHeight(0.5F)
-                .padding(16.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = stringResource(R.string.image_title),
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                )
-                Text(
-                    text = stringResource(R.string.image_text),
-                    color = Color.Black,
-                    textAlign = TextAlign.Justify
-                )
-            }
-            Column(modifier = modifier
-                .background(color = Color(0xFFF6EDFF))
-                .fillMaxHeight()
-                .padding(16.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = stringResource(R.string.column_title),
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                )
-                Text(
-                    text = stringResource(R.string.column_text),
-                    color = Color.Black,
-                    textAlign = TextAlign.Justify
-                )
-            }
+            Quarter(
+                title = stringResource(R.string.image_title),
+                text = stringResource(R.string.image_text),
+                color = 0xFFD0BCFF,
+                height = 0.5F
+            )
+            Quarter(
+                title = stringResource(R.string.column_title),
+                text = stringResource(R.string.column_text),
+                color = 0xFFF6EDFF,
+                height = 1F
+            )
         }
+    }
+}
+
+@Composable
+fun Quarter(
+    title: String,
+    text: String, color: Long,
+    height: Float,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .background(color = Color(color))
+            .fillMaxHeight(height)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = title,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+        )
+        Text(
+            text = text,
+            color = Color.Black,
+            textAlign = TextAlign.Justify
+        )
     }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun QuadrantPreview() {
+fun QuadrantsPreview() {
     ComposeQuadrantTheme {
-        Quadrant(
+        Quadrants(
             modifier = Modifier
             .padding(0.dp)
         )
